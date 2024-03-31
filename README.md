@@ -15,6 +15,7 @@ This project implements a simple grocery billing and management system using C. 
 #Usage
 
 -To compile the project, navigate to the project directory and run the following command: 
+    
     make: This will compile the project and generate an executable named 'main'. 
 
 -To run the program, execute the following command:
