@@ -1,7 +1,8 @@
 Grocery Billing and Management System 
+
 This project implements a simple grocery billing and management system using C. It allows users to manage inventory, input customer information, display available items, and generate bills for purchases.
 
-##Files
+#Files
 
 -main.c: The main file containing the entry point of the program and the main logic.
 
@@ -11,7 +12,7 @@ This project implements a simple grocery billing and management system using C. 
 
 -Makefile: A makefile script for easy compilation of the project.
 
-##Usage
+#Usage
 
 -To compile the project, navigate to the project directory and run the following command: 
     make: This will compile the project and generate an executable named 'main'. 
