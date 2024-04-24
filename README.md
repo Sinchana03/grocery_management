@@ -6,9 +6,13 @@ This project implements a simple grocery billing and management system using C. 
 
 -main.c: The main file containing the entry point of the program and the main logic.
 
--customer.c and customer.h: Files related to customer information handling.
+-customer.c and customer.h: Files related to customer information handling(name,phone number, email).
+
+-login.c and login.c:  Files related to login information(username and password).
 
 -inventory.c and inventory.h: Files related to inventory management.
+
+-linkedlist.c and linkedlist.h
 
 -Makefile: A makefile script for easy compilation of the project.
 
