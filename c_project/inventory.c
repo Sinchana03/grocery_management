@@ -1,80 +1,64 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
-#include "customer.h" 
 #include "inventory.h"
+#include "linkedlist.h"
 
-void displayInventory() {
+Item* createItem(const char *name, float price, int quantity) {
+    Item *item = (Item*)malloc(sizeof(Item));
+    if (item != NULL) {
+        strncpy(item->name, name, MAX_ITEM_NAME_LENGTH);
+        item->price = price;
+        item->quantity = quantity;
+    }
+    return item;
+}
+
+Item *findItem(LinkedList *list, const char *itemName) {
+    Node *current = list->head;
+    while (current != NULL) {
+        Item *item = (Item *)current->data;
+        if (strcmp(item->name, itemName) == 0) {
+            return item;
+        }
+        current = current->next;
+    }
+    return NULL; 
+}
+
+
+void displayInventory(LinkedList *inventoryList) {
     printf("\nAvailable Items:\n");
     printf("-----------------------------------\n");
     printf("Name\t\tPrice\tQuantity\n");
     printf("-----------------------------------\n");
     
-    int itemCount = 0;
-
-    for (int i = 0; i < MAX_ITEMS; i++) {
-        if (inventory[i].quantity > 0) {
-            printf("%s\t\t%.2f\t%d\n", inventory[i].name, inventory[i].price, inventory[i].quantity);
-            itemCount++;
-        }
-    }
-
-    if (itemCount == 0) {
-        printf("No items available.\n");
+    Node *current = inventoryList->head;
+    while (current != NULL) {
+        Item *item = (Item*)current->data;
+        printf("%s\t\t%.2f\t%d\n", item->name, item->price, item->quantity);
+        current = current->next;
     }
 
     printf("-----------------------------------\n");
 }
 
-struct Item inventory[MAX_ITEMS] = {
-    {"Apples", 28.0, 100},
-    {"Oranges", 32.0, 80},
-    {"Bananas", 3.0, 120},
-    {"Potato", 7.0, 200},
-    {"Tomato", 8.2, 150},
-    {"Bread", 40.0, 50},
-    {"Milk", 25.0, 75}
-};
-
-void startBilling(struct Customer *customer) {
-    char itemName[MAX_ITEM_NAME_LENGTH];
-    int quantity;
-    float totalAmount = 0;
-
-    printf("\nEnter items to purchase (enter 'done' to finish):\n");
-    printf("Item Name: ");
-    scanf("%s", itemName);
-
-    while (strcmp(itemName, "done") != 0) {
-        printf("Quantity: ");
-        scanf("%d", &quantity);
-
-        int found = 0;
-        for (int i = 0; i < MAX_ITEMS; i++) {
-            if (strcmp(itemName, inventory[i].name) == 0) {
-                if (inventory[i].quantity >= quantity) {
-                    totalAmount += inventory[i].price * quantity;
-                    inventory[i].quantity -= quantity;
-                    found = 1;
-                    break;
-                } else {
-                    printf("Insufficient quantity available for %s\n", itemName);
-                    found = 1;
-                    break;
-                }
-            }
+Item* findItemByName(LinkedList *inventoryList, const char *name) {
+    Node *current = inventoryList->head;
+    while (current != NULL) {
+        Item *item = (Item*)current->data;
+        if (strcmp(item->name, name) == 0) {
+            return item;
         }
-
-        if (!found) {
-            printf("Item not found in inventory.\n");
-        }
-
-        printf("Item Name: ");
-        scanf("%s", itemName);
+        current = current->next;
     }
+    return NULL;
+}
 
-    printf("\nBilling Details:\n");
-    printf("Customer Name: %s\n", customer->name);
-    printf("Phone Number: %s\n", customer->phoneNumber);
-    printf("Email: %s\n", customer->email);
-    printf("Total Amount: %.2f rupees\n", totalAmount);
+void updateItemQuantity(Item *item, int quantity) {
+    item->quantity += quantity;
+}
+
+void freeInventory(LinkedList *inventoryList) {
+    freeLinkedList(inventoryList);
 }
