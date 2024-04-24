@@ -3,10 +3,10 @@ CFLAGS = -Wall -Wextra
 
 all: main
 
-main: main.o customer.o inventory.o
-    $(CC) $(CFLAGS) -o main main.o customer.o inventory.o
+main: main.o customer.o inventory.o login.o linkedlist.o
+    $(CC) $(CFLAGS) -o main main.o customer.o inventory.o login.o linkedlist.o
 
-main.o: main.c customer.h inventory.h
+main.o: main.c customer.h inventory.h login.h linkedlist.h
     $(CC) $(CFLAGS) -c main.c
 
 customer.o: customer.c customer.h
@@ -14,6 +14,12 @@ customer.o: customer.c customer.h
 
 inventory.o: inventory.c inventory.h
     $(CC) $(CFLAGS) -c inventory.c
+
+login.o: login.c login.h
+    $(CC) $(CFLAGS) -c login.c
+
+linkedlist.o: linkedlist.c linkedlist.h
+    $(CC) $(CFLAGS) -c linkedlist.c
 
 clean:
     rm -f *.o main
