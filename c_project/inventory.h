@@ -1,17 +1,17 @@
 #ifndef INVENTORY_H
 #define INVENTORY_H
-
-#define MAX_ITEMS 100 
+#include "linkedlist.h"
 #define MAX_ITEM_NAME_LENGTH 50
 
-struct Item {
-    char name[50];
+typedef struct Item {
+    char name[MAX_ITEM_NAME_LENGTH];
     float price;
     int quantity;
-};
+} Item;
 
-extern struct Item inventory[MAX_ITEMS];
+Item *findItem(LinkedList *list, const char *itemName);
 
-void displayInventory();
+Item* createItem(const char *name, float price, int quantity);
+void displayInventory(LinkedList *inventoryList);
 
 #endif // INVENTORY_H
