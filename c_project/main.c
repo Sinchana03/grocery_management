@@ -1,21 +1,14 @@
+#include "customer.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include "login.h"
 #include "inventory.h"
-#include "linkedlist.h"
-#include "customer.h"
 
 int main() {
     LinkedList *inventoryList = createLinkedList();
 
-    append(inventoryList, createItem("Apples", 28.0, 100));
-    append(inventoryList, createItem("Oranges", 32.0, 80));
-    append(inventoryList, createItem("Bananas", 3.0, 120));
-    append(inventoryList, createItem("Potato", 7.0, 200));
-    append(inventoryList, createItem("Tomato", 8.2, 150));
-    append(inventoryList, createItem("Bread", 40.0, 50));
-    append(inventoryList, createItem("Milk", 25.0, 75));
+    loadInventoryFromFile(inventoryList);
 
     displayInventory(inventoryList);
 
@@ -23,7 +16,7 @@ int main() {
     printf("\nEnter your username: ");
     scanf("%s", username);
     char password[MAX_PASSWORD_LENGTH];
-    printf("\nEnter your password: ");
+    printf("Enter your password: ");
     scanf("%s", password);
 
     Customer customer;
@@ -39,7 +32,7 @@ int main() {
         printf("Enter the quantity: ");
         scanf("%d", &quantity);
 
-        Item *item = findItem(inventoryList, itemName);
+        Item *item = findItemByName(inventoryList, itemName);
         if (item != NULL) {
             totalPrice += item->price * quantity;
             printf("Added %d %s to your cart.\n", quantity, itemName);
@@ -52,6 +45,9 @@ int main() {
     } while (choice == 'y' || choice == 'Y');
 
     printf("\nTotal Price: %.2f rupees\n", totalPrice);
+
+    saveCustomerToFile(&customer);
+    saveInventoryToFile(inventoryList);
 
     freeLinkedList(inventoryList);
 
