@@ -15,5 +15,6 @@ Customer* createCustomer(const char *name, const char *phoneNumber, const char *
 void displayCustomerInfo(Customer *customer);
 void freeCustomer(Customer *customer);
 void getCustomerInfo(Customer *customer);
+void saveCustomerToFile(Customer *customer);
 
 #endif /* CUSTOMER_H */
